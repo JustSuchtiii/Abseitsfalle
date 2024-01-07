@@ -8,4 +8,7 @@ Der Bot wird mit der Lib py-cord gecoded.
 - /help
 
 ## Sonstiges
-Ihr dürft den Code gerne selbst nutzen. Aber bitte gibt den nicht als euren aus! Zudem müsst ihr folgende Datei erstellen: `logs/discord.log`
+Ihr dürft den Code gerne selbst nutzen. Aber bitte gibt den nicht als euren aus! Zudem müsst ihr folgende Datei erstellen:
+- `./logs/discord.log`
+- `./db/clubs.db`
+- `./db/tickets.db`
