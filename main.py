@@ -23,9 +23,9 @@ bot = discord.Bot(
 # Events
 @bot.event
 async def on_ready():
-  print(f"👋 > {bot.user} ist nun Online!\n🤖 > Warte Auf Befehle...")
+  print(f"👋  > {bot.user} ist nun Online!\n🤖  > Warte Auf Befehle...")
   status.start()
-  print(f"🕛 > Task gestartet: Status")
+  print(f"🕛  > Task gestartet: Status")
 
 # Tasks
 @tasks.loop(minutes=2)
@@ -63,6 +63,10 @@ if __name__ == "__main__":
   for filename in os.listdir("commands"):
     if filename.endswith(".py"):
       bot.load_extension(f"commands.{filename[:-3]}")
+
+  for filename in os.listdir("commands/moderation"):
+    if filename.endswith(".py"):
+      bot.load_extension(f"commands.moderation.{filename[:-3]}")
 
   load_dotenv()
   bot.run(os.getenv("TOKEN"), reconnect=True)
