@@ -18,7 +18,7 @@ class Timeout(commands.Cog):
   @slash_command(name="timeout", description="Timeoute einen User")
   @commands.has_permissions(moderate_members=True)
   @commands.cooldown(1, 15, commands.BucketType.user)
-  async def timeout(self, ctx, user: Option(discord.Member, required=True, description="Wer soll getimeoutet werden?"), reason: Option(str, required=True, description="Weshalb möchtest du ihn timouten?"), d: Option(int, max_value=30, description="Wie viele Tage soll er getimoutet werden?"), h: Option(int, description="Wie viele Stunden soll er getimoutet werden?"), m: Option(int, description="Wie viele Minuten soll er getimoutet werden?"), s: Option(int, description="Wie viele Sekunden soll er getimoutet werden?")):
+  async def timeout(self, ctx, user: Option(discord.Member, required=True, description="Wer soll getimeoutet werden?"), reason: Option(str, required=True, description="Weshalb möchtest du ihn timouten?"), d: Option(int, max_value=30, required=False, description="Wie viele Tage soll er getimoutet werden?"), h: Option(int, required=False, description="Wie viele Stunden soll er getimoutet werden?"), m: Option(int, required=False, description="Wie viele Minuten soll er getimoutet werden?"), s: Option(int, required=False, description="Wie viele Sekunden soll er getimoutet werden?")):
     await ctx.defer()
 
     logchannel = discord.utils.get(ctx.guild.channels, name="「📃」adminlog")
