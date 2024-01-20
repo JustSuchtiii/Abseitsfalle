@@ -4,6 +4,7 @@ from discord.ext import commands
 from discord.commands import slash_command
 from discord.ui import View, Select
 from datetime import datetime
+from discord.ext.commands.errors import CommandOnCooldown
 
 class Help(commands.Cog):
   def __init__(self, bot):
@@ -12,14 +13,12 @@ class Help(commands.Cog):
   # Events
   @commands.Cog.listener()
   async def on_ready(self):
-    print(f"🟢 > Cog geladen: {__name__}")
+    print(f"🟢  > Cog geladen: {__name__}")
   
   # Commands
-  help = discord.SlashCommandGroup(name="help", description="Hilfecommands")
-
-  @slash_command(name="helpmenu", description="Hier findest du das gesamte Help-Menu")
-  @commands.cooldown(1, 5)
-  async def helpmenu(self, ctx):
+  @slash_command(name="help", description="Hier findest du das gesamte Help-Menu")
+  @commands.cooldown(1, 15, commands.BucketType.user)
+  async def help(self, ctx):
     await ctx.defer()
 
     embedStart = discord.Embed(
@@ -69,40 +68,19 @@ class Help(commands.Cog):
 
     message = await ctx.respond(embed=embedStart, view=view)
 
-  @help.command(name="help", description="Hilfe zu den Hilfe-Commands")
-  @commands.cooldown(1, 5)
-  async def help_help(self, ctx):
-    await ctx.defer()
-    embedHelp = discord.Embed(
-      description="Hilfe Commands",
-      color=discord.Color.brand_green()
-    ).add_field(
-      name="_ _",
-      value=f"""
-        > - `/helpmenu`       - Hirr findest du das gesamte Help-Menü
-        > - `/help help`      - Hilfe zu den Hilfe-Commands
-        > - `/help sonstiges` - Hilfe zu den Sontigen Commands
-        """
-    )
-    await ctx.respond(embed=embedHelp)
-    return
-  
-  @help.command(name="sonstiges", description="Hilfe zu den Sonstigen Commands")
-  @commands.cooldown(1, 5)
-  async def help_misc(self, ctx):
-    await ctx.defer()
-    embedMisc = discord.Embed(
-      description="Sonstige Commands",
-      color=discord.Color.brand_green()
-    ).add_field(
-      name="_ _",
-      value=f"""
-        > - `/transfer` - Erstelle neue Transfernachrichten
-        """
-    )
-    await ctx.respond(embed=embedMisc)
-    return
-
+  # Error
+  @help.error
+  async def help_error(self, ctx, error):    
+    if isinstance(error, CommandOnCooldown):
+      embed = discord.Embed(
+        embed = discord.Embed(
+          title="`Error-03`",
+          description="Der Command befindet sich noch immer im Cooldown.",
+          color=discord.Color.brand_red()
+        )
+      )
+      await ctx.respond(embed=embed)
+      return
   
 def setup(bot):
   bot.add_cog(Help(bot))
