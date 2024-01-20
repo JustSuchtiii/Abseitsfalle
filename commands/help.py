@@ -27,16 +27,42 @@ class Help(commands.Cog):
       color=discord.Color.brand_green()
     )
 
-    embedHelp = discord.Embed(
-      description="Hilfe Commands",
+    embedModeration = discord.Embed(
+      description="Moderatoren Commands",
       color=discord.Color.brand_green()
     ).add_field(
       name="_ _",
       value=f"""
-        > - `/helpmenu`       - Hirr findest du das gesamte Help-Menü
-        > - `/help help`      - Hilfe zu den Hilfe-Commands
-        > - `/help sonstiges` - Hilfe zu den Sontigen Commands
+        > - `/ban <user> <reason>`
+        >  - Banne einen User
+        >  - Permissons: Mitglieder bannen
+
+        > - `/kick <user> <reason>`
+        >  - Kicke einen User
+        >  - Permissons: Mitglieder kicken
+
+        > - `/lock <channel>`
+        >  - Sperre einen Textkanal
+        >  - Permissons: Kanäle verwalten
+
+        > - `/purge <anzahl>`
+        >  - Lösche mehrere Nachrichten Aufeinmal
+        >  - Permissons: Nachrichten verwalten
+
+        > - `/timeout <user> <reason> [d] [h] [m] [s]`
+        >  - Timeoute einen User
+        >  - Permissons: Mitglieder im Timeout
+
+        > - `/unlock <channel>`
+        >  - Entsperre einen Textkanal
+        >  - Permissons: Kanäle verwalten
+
+        > - `/untimeout <user>`
+        >  - Untimeoute einen User
+        >  - Permissons: Mitglieder im Timeout
         """
+    ).set_footer(
+      text="<> = required, [] = optional"
     )
 
     embedMisc = discord.Embed(
@@ -45,20 +71,27 @@ class Help(commands.Cog):
     ).add_field(
       name="_ _",
       value=f"""
-        > - `/transfer` - Erstelle neue Transfernachrichten
+        > - `/help`
+        >  - Hilfe-Command
+
+        > - `/transfer`
+        >  - Erstelle neue Transfernachrichten
         """
+    ).set_footer(
+      text="<> = required, [] = optional"
     )
+    
     menu = Select(options=[
       discord.SelectOption(label="Menu", value="menu_start", emoji="👋🏻", description="Help-Menü"),
-      discord.SelectOption(label="Help", value="menu_help", emoji="❓", description="Hier findest du Hilfe zum Bot"),
-      discord.SelectOption(label="Sonstiges", value="menu_misc", emoji="👀", description="Hier findest du den sonstigen Commands")
+      discord.SelectOption(label="Moderation", value="menu_moderation", emoji="👮‍♂️", description="Hier findest du alle Moderation Commands."),
+      discord.SelectOption(label="Sonstiges", value="menu_misc", emoji="👀", description="Hier findest du sonstige Commands,")
     ])
 
     async def menuAuswahl(interaction):
       if menu.values[0] == "menu_start":
         await message.edit(embed=embedStart)
-      if menu.values[0] == "menu_help":
-        await message.edit(embed=embedHelp)
+      if menu.values[0] == "menu_moderation":
+        await message.edit(embed=embedModeration)
       if menu.values[0] == "menu_misc":
         await message.edit(embed=embedMisc)
 
