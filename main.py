@@ -17,7 +17,7 @@ intents.reactions = True
 # Bot
 bot = discord.Bot(
   intents=intents,
-  debug_guilds=[1087465763125862490]
+  debug_guilds=[1087465763125862490, 1182394055091568822]
 )
 
 # Events
@@ -36,7 +36,7 @@ async def status():
   team_away = random.choice(team_list)
 
   activity_name = f"{team_home} - {team_away}"
-  
+
   activity = discord.Streaming(
     name=activity_name,
     url="https://www.twitch.tv/justsuchtiii"
@@ -67,6 +67,10 @@ if __name__ == "__main__":
   for filename in os.listdir("commands/moderation"):
     if filename.endswith(".py"):
       bot.load_extension(f"commands.moderation.{filename[:-3]}")
+
+  for filename in os.listdir("commands/ticket"):
+    if filename.endswith(".py"):
+      bot.load_extension(f"commands.ticket.{filename[:-3]}")
 
   load_dotenv()
   bot.run(os.getenv("TOKEN"), reconnect=True)
