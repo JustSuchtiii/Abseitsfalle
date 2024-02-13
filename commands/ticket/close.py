@@ -56,7 +56,7 @@ class Close(commands.Cog):
     await remove_ticket(ctx.channel.id)
 
     await ctx.respond(embed=embedC)
-    await asyncio.sleep(10)
+    await asyncio.sleep(15)
     await ctx.channel.delete()
     await logchannel.send(embed=embedL)
 

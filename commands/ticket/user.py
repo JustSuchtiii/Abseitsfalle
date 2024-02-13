@@ -19,7 +19,7 @@ class User(commands.Cog):
   
   @ticket.command(name="add", description="Füge einen User zum Ticket hinzu")
   @commands.has_permissions(manage_channels=True)
-  @commands.cooldown(1, 15, commands.BucketType.user)
+  @commands.cooldown(1, 5, commands.BucketType.user)
   async def user_add(self, ctx, user: Option(discord.Member)):
     await ctx.defer()
 
@@ -49,7 +49,7 @@ class User(commands.Cog):
 
   @ticket.command(name="remove", description="Entferne einen User zum Ticket hinzu")
   @commands.has_permissions(manage_channels=True)
-  @commands.cooldown(1, 15, commands.BucketType.user)
+  @commands.cooldown(1, 5, commands.BucketType.user)
   async def user_rem(self, ctx, user: Option(discord.Member)):
     await ctx.defer()
 

@@ -17,7 +17,7 @@ class Help(commands.Cog):
   
   # Commands
   @slash_command(name="help", description="Hier findest du das gesamte Help-Menu")
-  @commands.cooldown(1, 15, commands.BucketType.user)
+  @commands.cooldown(1, 5, commands.BucketType.user)
   async def help(self, ctx):
     await ctx.defer()
 

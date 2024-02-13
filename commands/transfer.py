@@ -16,7 +16,7 @@ class Transfer(commands.Cog):
 
   # Commands
   @slash_command(name="transfer", description="Gebe neue Transfers bekannt.")
-  @commands.cooldown(1, 15, commands.BucketType.user)
+  @commands.cooldown(1, 5, commands.BucketType.user)
   async def transfer(self, ctx):
     await ctx.defer()
     await ctx.respond("Wähle aus:", view=TransferView(), ephemeral=True)

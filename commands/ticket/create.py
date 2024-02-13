@@ -33,7 +33,7 @@ class Create(commands.Cog):
 
   # Commands
   @slash_command(name="ticket-create", description="Erstell dir ein Ticket")
-  @commands.cooldown(1, 15, commands.BucketType.user)
+  @commands.cooldown(1, 5, commands.BucketType.user)
   async def create(self, ctx):
     await ctx.defer()
 
